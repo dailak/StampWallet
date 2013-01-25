@@ -1,21 +1,20 @@
 package com.damgeek.stampwallet;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -96,6 +95,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
+    public void send_clicked(View view) {
+    	EditText editor = (EditText)findViewById(R.id.message_text);
+    	Toast.makeText(this, String.format(getString(R.string.sending_msg), editor.getText()), Toast.LENGTH_LONG).show();
+    }
+    
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -157,10 +161,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 Bundle savedInstanceState) {
             // Create a new TextView and set its text to the fragment's section
             // number argument value.
-            TextView textView = new TextView(getActivity());
-            textView.setGravity(Gravity.CENTER);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            return textView;
+        	View result = inflater.inflate(R.layout.stamp_card, container, false);
+        	//Button sendBtn = (Button)result.findViewById(R.id.button_send);
+        	
+        	EditText editor=(EditText)result.findViewById(R.id.message_text);
+            int position=getArguments().getInt(ARG_SECTION_NUMBER, -1);
+            editor.setText(String.format(getString(R.string.hint), position));
+           
+            return result;
         }
     }
 
