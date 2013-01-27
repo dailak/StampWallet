@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="16" />
 
     <application
@@ -20,6 +20,17 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.damgeek.stampwallet.BeamActivity"
+            android:label="@string/title_activity_beam" 
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="application/com.damgeek.stampwallet"/>
+                
             </intent-filter>
         </activity>
     </application>
