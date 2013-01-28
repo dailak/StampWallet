@@ -3,7 +3,10 @@
     package="com.damgeek.stampwallet"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permission android:name="android.permission.NFC" />
+	<!-- Features -->
+	<uses-feature android:name="android.hardware.nfc" android:required="true" />
+	
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="16" />
@@ -12,25 +15,19 @@
         android:allowBackup="true"
         android:icon="@drawable/stamp_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme" 
+        android:launchMode="singleTop">
         <activity
             android:name="com.damgeek.stampwallet.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.damgeek.stampwallet.BeamActivity"
-            android:label="@string/title_activity_beam" 
-            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="application/com.damgeek.stampwallet"/>
-                
             </intent-filter>
         </activity>
     </application>
