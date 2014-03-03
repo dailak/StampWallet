@@ -140,64 +140,42 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             // getItem is called to instantiate the fragment for the given page.
             // Return a DummySectionFragment (defined as a static inner class
             // below) with the page number as its lone argument.
-            Fragment fragment = new DummySectionFragment();
+        	Fragment fragment;
+        	switch (position) {
+            case 0: 
+            	fragment = new MyWalletSectionFragment();
+            	break;
+            case 1:
+            	fragment = new FindShopsSectionFragment();
+            	break;
+            default:
+            	fragment = new Fragment();
+        	}
             Bundle args = new Bundle();
-            args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+            args.putInt(MyWalletSectionFragment.ARG_SECTION_NUMBER, position + 1);
             fragment.setArguments(args);
             return fragment;
+            
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase();
+                    return getString(R.string.title_my_wallet).toUpperCase();
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase();
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase();
+                    return getString(R.string.title_find_shops).toUpperCase();
             }
             return null;
         }
     }
 
-    /**
-     * A dummy fragment representing a section of the app, but that simply
-     * displays dummy text.
-     */
-    public static class DummySectionFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        public static final String ARG_SECTION_NUMBER = "section_number";
-
-        public DummySectionFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            // Create a new TextView and set its text to the fragment's section
-            // number argument value.
-        	View result = inflater.inflate(R.layout.stamp_card, container, false);
-        	//Button sendBtn = (Button)result.findViewById(R.id.button_send);
-        	
-        	EditText editor=(EditText)result.findViewById(R.id.message_text);
-            int position=getArguments().getInt(ARG_SECTION_NUMBER, -1);
-            editor.setText(String.format(getString(R.string.hint), position));
-           
-            return result;
-        }
-    }
-
-    
     //NFC Stuffs here
     private final Handler mHandler = new Handler() {
     	@Override
